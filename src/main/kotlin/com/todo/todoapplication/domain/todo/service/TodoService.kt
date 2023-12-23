@@ -2,6 +2,8 @@ package com.todo.todoapplication.domain.todo.service
 
 import com.todo.todoapplication.domain.todo.dto.TodoCreationRequest
 import com.todo.todoapplication.domain.todo.dto.TodoResponse
+import com.todo.todoapplication.domain.todo.dto.TodoUpdateRequest
+import com.todo.todoapplication.domain.todo.exception.TodoNotFoundException
 import com.todo.todoapplication.domain.todo.repository.TodoRepository
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
@@ -20,7 +22,7 @@ class TodoService(private val todoRepository: TodoRepository) {
 
     // R
     fun getTodo(todoId: Long): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw RuntimeException("$todoId 를 찾을 수 없습니다.}")
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException(todoId)
         return TodoResponse.from(todo)
     }
 
@@ -28,5 +30,16 @@ class TodoService(private val todoRepository: TodoRepository) {
         return todoRepository.findAll(Sort.by(Sort.Direction.DESC, "creation_time")).map {
             TodoResponse.from(it)
         }
+    }
+
+    @Transactional
+    fun updateTodo(todoId: Long, request: TodoUpdateRequest): TodoResponse {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException(todoId)
+
+        todo.title = request.title
+        todo.description = request.description
+        todo.author = request.author
+
+        return TodoResponse.from(todo)
     }
 }
