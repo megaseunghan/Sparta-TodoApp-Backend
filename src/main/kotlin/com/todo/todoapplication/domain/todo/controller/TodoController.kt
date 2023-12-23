@@ -2,6 +2,7 @@ package com.todo.todoapplication.domain.todo.controller
 
 import com.todo.todoapplication.domain.todo.dto.TodoCreationRequest
 import com.todo.todoapplication.domain.todo.dto.TodoResponse
+import com.todo.todoapplication.domain.todo.dto.TodoUpdateRequest
 import com.todo.todoapplication.domain.todo.service.TodoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -31,5 +32,16 @@ class TodoController(private val todoService: TodoService) {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.getTodoList())
+    }
+
+    // U
+    @PutMapping("/{todoId}")
+    fun updateTodo(
+        @PathVariable todoId: Long,
+        @RequestBody request: TodoUpdateRequest
+    ): ResponseEntity<TodoResponse> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(todoService.updateTodo(todoId, request))
     }
 }
