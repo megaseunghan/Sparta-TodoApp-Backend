@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RestController("/api/v1/todos")
+@RestController
+@RequestMapping("/api/v1/todos")
 class TodoController(private val todoService: TodoService) {
 
     // C
@@ -43,5 +44,14 @@ class TodoController(private val todoService: TodoService) {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.updateTodo(todoId, request))
+    }
+
+    // D
+    @DeleteMapping("/{todoId}")
+    fun deleteTodo(@PathVariable todoId: Long): ResponseEntity<TodoResponse> {
+        todoService.deleteTodo(todoId)
+        return ResponseEntity
+            .status(HttpStatus.NO_CONTENT)
+            .build()
     }
 }
