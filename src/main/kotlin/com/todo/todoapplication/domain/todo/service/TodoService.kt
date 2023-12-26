@@ -27,7 +27,7 @@ class TodoService(private val todoRepository: TodoRepository) {
     }
 
     fun getTodoList(): List<TodoResponse> {
-        return todoRepository.findAll(Sort.by(Sort.Direction.DESC, "creation_time")).map {
+        return todoRepository.findAll(Sort.by(Sort.Direction.DESC, "creationTime")).map {
             TodoResponse.from(it)
         }
     }
