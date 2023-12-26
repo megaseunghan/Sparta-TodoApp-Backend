@@ -32,6 +32,7 @@ class TodoService(private val todoRepository: TodoRepository) {
         }
     }
 
+    // U
     @Transactional
     fun updateTodo(todoId: Long, request: TodoUpdateRequest): TodoResponse {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException(todoId)
@@ -41,5 +42,12 @@ class TodoService(private val todoRepository: TodoRepository) {
         todo.author = request.author
 
         return TodoResponse.from(todo)
+    }
+
+    // D
+    @Transactional
+    fun deleteTodo(todoId: Long) {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException(todoId)
+        todoRepository.delete(todo)
     }
 }
