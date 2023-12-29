@@ -1,25 +1,37 @@
 package com.todo.todoapplication.domain.todo.model
 
-import com.todo.todoapplication.domain.todo.dto.TodoResponse
+import com.todo.todoapplication.global.entity.BaseEntity
 import jakarta.persistence.*
-import java.time.LocalDateTime
 
 @Entity
+@Table(name = "todos")
 class Todo(
+    title: String,
+    description: String,
+    author: String
+) : BaseEntity() {
+
     @Column(name = "title")
-    var title: String,
+    var title = title
+        private set
 
     @Column(name = "description")
-    var description: String,
-
-    @Column(name = "creation_time")
-    val creationTime: LocalDateTime = LocalDateTime.now(),
+    var description = description
+        private set
 
     @Column(name = "author")
-    var author: String
-) {
+    var author = author
+        private set
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+
+    fun update(title: String, description: String, author: String) {
+        this.title = title
+        this.description = description
+        this.author = author
+    }
+
 }
