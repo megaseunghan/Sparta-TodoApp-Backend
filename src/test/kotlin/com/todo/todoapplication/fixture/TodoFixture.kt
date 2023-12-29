@@ -7,6 +7,9 @@ import java.time.LocalDateTime
 
 class TodoFixture {
     companion object {
+        val todoId = 1L
+        val wrongTodoId = 9999L
+
         val createTodoRequest = TodoCreateRequest(
             title = "투두 제목",
             description = "투두 내용",
