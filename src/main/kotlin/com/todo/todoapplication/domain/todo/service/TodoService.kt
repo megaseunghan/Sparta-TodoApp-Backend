@@ -1,9 +1,9 @@
 package com.todo.todoapplication.domain.todo.service
 
-import com.todo.todoapplication.domain.todo.dto.TodoCreationRequest
-import com.todo.todoapplication.domain.todo.dto.TodoResponse
-import com.todo.todoapplication.domain.todo.dto.TodoUpdateRequest
-import com.todo.todoapplication.domain.todo.exception.TodoNotFoundException
+import com.todo.todoapplication.domain.todo.dto.request.TodoCreateRequest
+import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
+import com.todo.todoapplication.domain.todo.dto.request.TodoUpdateRequest
+import com.todo.todoapplication.global.exception.todo.NoSuchTodoException
 import com.todo.todoapplication.domain.todo.repository.TodoRepository
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
@@ -15,17 +15,19 @@ class TodoService(private val todoRepository: TodoRepository) {
 
     // C
     @Transactional
-    fun addTodo(request: TodoCreationRequest): TodoResponse {
+    fun createTodo(request: TodoCreateRequest): Long {
         val todo = todoRepository.save(request.toEntity())
-        return TodoResponse.from(todo)
+        return todo.id!!
     }
 
     // R
+    @Transactional(readOnly = true)
     fun getTodo(todoId: Long): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException(todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
         return TodoResponse.from(todo)
     }
 
+    @Transactional(readOnly = true)
     fun getTodoList(): List<TodoResponse> {
         return todoRepository.findAll(Sort.by(Sort.Direction.DESC, "creationTime")).map {
             TodoResponse.from(it)
@@ -34,20 +36,20 @@ class TodoService(private val todoRepository: TodoRepository) {
 
     // U
     @Transactional
-    fun updateTodo(todoId: Long, request: TodoUpdateRequest): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException(todoId)
+    fun updateTodo(todoId: Long, request: TodoUpdateRequest) {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
 
-        todo.title = request.title
-        todo.description = request.description
-        todo.author = request.author
-
-        return TodoResponse.from(todo)
+        todo.update(
+            request.title,
+            request.description,
+            request.author
+        )
     }
 
     // D
     @Transactional
     fun deleteTodo(todoId: Long) {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException(todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
         todoRepository.delete(todo)
     }
 }
