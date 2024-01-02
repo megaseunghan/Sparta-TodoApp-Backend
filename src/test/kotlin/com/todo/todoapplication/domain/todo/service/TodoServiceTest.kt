@@ -98,6 +98,23 @@ class TodoServiceTest : BehaviorSpec() {
             }
         }
 
+        Given("Todo 완료 처리 요청이 들어왔을 때") {
+            val todoId = todoId
+            var completed = false
+
+            every { todoService.completeTodo(todoId) } answers {
+                completed = !completed
+            }
+
+            When("Todo가 조회되면") {
+                Then("Todo의 완료 여부가 토글된다.") {
+                    todoService.completeTodo(todoId)
+                    completed shouldBe true
+                }
+            }
+
+        }
+
         // D
         Given("삭제를 위한 Todo Id가 주어졌을 때") {
             val todoId = todoId
