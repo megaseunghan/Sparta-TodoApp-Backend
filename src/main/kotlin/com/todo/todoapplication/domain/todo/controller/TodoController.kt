@@ -39,7 +39,13 @@ class TodoController(private val todoService: TodoService) {
         @RequestBody request: TodoUpdateRequest
     ): ResponseEntity<Unit> {
         todoService.updateTodo(todoId, request)
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
+    }
+
+    @PatchMapping("/{todoId}")
+    fun completeTodo(@PathVariable todoId: Long): ResponseEntity<Unit> {
+        todoService.completeTodo(todoId)
+        return ResponseEntity.ok().build()
     }
 
     // D

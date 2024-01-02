@@ -6,9 +6,7 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "todos")
 class Todo(
-    title: String,
-    description: String,
-    author: String
+    title: String, description: String, author: String
 ) : BaseEntity() {
 
     @Column(name = "title")
@@ -23,6 +21,10 @@ class Todo(
     var author = author
         private set
 
+    @Column(name = "complete")
+    var completed = false
+        private set
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +34,10 @@ class Todo(
         this.title = title
         this.description = description
         this.author = author
+    }
+
+    fun toggleComplete() {
+        this.completed = !completed
     }
 
 }

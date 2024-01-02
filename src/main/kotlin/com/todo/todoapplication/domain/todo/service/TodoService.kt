@@ -29,7 +29,7 @@ class TodoService(private val todoRepository: TodoRepository) {
 
     @Transactional(readOnly = true)
     fun getTodoList(): List<TodoResponse> {
-        return todoRepository.findAll(Sort.by(Sort.Direction.DESC, "creationTime")).map {
+        return todoRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")).map {
             TodoResponse.from(it)
         }
     }
@@ -46,10 +46,18 @@ class TodoService(private val todoRepository: TodoRepository) {
         )
     }
 
+    @Transactional
+    fun completeTodo(todoId: Long) {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
+
+        todo.toggleComplete()
+    }
+
     // D
     @Transactional
     fun deleteTodo(todoId: Long) {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
         todoRepository.delete(todo)
     }
+
 }

@@ -27,13 +27,15 @@ class TodoFixture {
             title = "투두 제목",
             description = "투두 내용",
             createdAt = LocalDateTime.now(),
-            author = "홍길동"
+            updatedAt = LocalDateTime.now(),
+            author = "홍길동",
+            completed = false
         )
 
         val todoResponseList: List<TodoResponse> = listOf(
-            TodoResponse(1, "투두 제목 1", "투두 내용 1", LocalDateTime.now(), "홍길동"),
-            TodoResponse(2, "투두 제목 2", "투두 내용 2", LocalDateTime.now(), "김철수"),
-            TodoResponse(3, "투두 제목 3", "투두 내용 3", LocalDateTime.now(), "이나라")
+            TodoResponse(1, "투두 제목 1", "투두 내용 1", LocalDateTime.now(), LocalDateTime.now(), "홍길동", false),
+            TodoResponse(2, "투두 제목 2", "투두 내용 2", LocalDateTime.now(), LocalDateTime.now(), "김철수", false),
+            TodoResponse(3, "투두 제목 3", "투두 내용 3", LocalDateTime.now(), LocalDateTime.now(), "이나라", false)
         )
     }
 }
