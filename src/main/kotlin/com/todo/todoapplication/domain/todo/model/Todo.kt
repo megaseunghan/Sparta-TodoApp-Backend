@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "todos")
 class Todo(
-    title: String, description: String, author: String
+    title: String, description: String, name: String
 ) : BaseEntity() {
 
     @Column(name = "title")
@@ -18,7 +18,7 @@ class Todo(
         private set
 
     @Column(name = "author")
-    var author = author
+    var name = name
         private set
 
     @Column(name = "complete")
@@ -26,14 +26,14 @@ class Todo(
         private set
 
     @Id
-    @Column(name = "id")
+    @Column(name = "todo_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 
     fun update(title: String, description: String, author: String) {
         this.title = title
         this.description = description
-        this.author = author
+        this.name = author
     }
 
     fun toggleComplete() {

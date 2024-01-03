@@ -6,7 +6,7 @@ import com.todo.todoapplication.fixture.TodoFixture.Companion.todoResponse
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoResponseList
 import com.todo.todoapplication.fixture.TodoFixture.Companion.updateTodoRequest
 import com.todo.todoapplication.fixture.TodoFixture.Companion.wrongTodoId
-import com.todo.todoapplication.global.exception.todo.NoSuchTodoException
+import com.todo.todoapplication.global.exception.NoSuchEntityException
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -44,7 +44,7 @@ class TodoServiceTest : BehaviorSpec() {
             val response = todoResponse
 
             every { todoService.getTodo(any()) } returns response
-            every { todoService.getTodo(wrongTodoId) } throws NoSuchTodoException(wrongTodoId)
+            every { todoService.getTodo(wrongTodoId) } throws NoSuchEntityException(wrongTodoId)
 
             When("ID에 맞는 Todo가 존재한다면") {
                 Then("Todo 1개가 조회된다") {
@@ -53,13 +53,13 @@ class TodoServiceTest : BehaviorSpec() {
             }
 
             When("ID에 맞는 Todo가 존재하지 않는다면") {
-                val noSuchTodoException = shouldThrowExactly<NoSuchTodoException> {
+                val noSuchEntityException = shouldThrowExactly<NoSuchEntityException> {
                     todoService.getTodo(wrongTodoId)
                 }
 
                 Then("NoSuchTodoException 예외가 발생한다") {
-                    noSuchTodoException::class.simpleName shouldBe "NoSuchTodoException"
-                    noSuchTodoException.message shouldBe "Todo 를 찾을 수 없습니다. todoID => $wrongTodoId"
+                    noSuchEntityException::class.simpleName shouldBe "NoSuchTodoException"
+                    noSuchEntityException.message shouldBe "Todo 를 찾을 수 없습니다. todoID => $wrongTodoId"
                 }
             }
         }
@@ -121,7 +121,7 @@ class TodoServiceTest : BehaviorSpec() {
             val wrongTodoId = wrongTodoId
 
             every { todoService.deleteTodo(any()) } just runs
-            every { todoService.deleteTodo(wrongTodoId) } throws NoSuchTodoException(wrongTodoId)
+            every { todoService.deleteTodo(wrongTodoId) } throws NoSuchEntityException(wrongTodoId)
 
             When("ID에 맞는 Todo가 존재한다면") {
                 Then("해당 Todo가 삭제된다") {
@@ -130,13 +130,13 @@ class TodoServiceTest : BehaviorSpec() {
             }
 
             When("ID에 맞는 Todo가 존재하지 않는다면") {
-                val noSuchTodoException = shouldThrowExactly<NoSuchTodoException> {
+                val noSuchEntityException = shouldThrowExactly<NoSuchEntityException> {
                     todoService.deleteTodo(wrongTodoId)
                 }
 
                 Then("NoSuchTodoException 예외가 발생한다") {
-                    noSuchTodoException::class.simpleName shouldBe "NoSuchTodoException"
-                    noSuchTodoException.message shouldBe "Todo 를 찾을 수 없습니다. todoID => $wrongTodoId"
+                    noSuchEntityException::class.simpleName shouldBe "NoSuchTodoException"
+                    noSuchEntityException.message shouldBe "Todo 를 찾을 수 없습니다. todoID => $wrongTodoId"
                 }
             }
         }
