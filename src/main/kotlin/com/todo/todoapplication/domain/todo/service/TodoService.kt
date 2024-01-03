@@ -1,10 +1,10 @@
 package com.todo.todoapplication.domain.todo.service
 
 import com.todo.todoapplication.domain.todo.dto.request.TodoCreateRequest
-import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
 import com.todo.todoapplication.domain.todo.dto.request.TodoUpdateRequest
-import com.todo.todoapplication.global.exception.todo.NoSuchTodoException
+import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
 import com.todo.todoapplication.domain.todo.repository.TodoRepository
+import com.todo.todoapplication.global.exception.NoSuchEntityException
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -23,7 +23,7 @@ class TodoService(private val todoRepository: TodoRepository) {
     // R
     @Transactional(readOnly = true)
     fun getTodo(todoId: Long): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchEntityException(todoId)
         return TodoResponse.from(todo)
     }
 
@@ -37,18 +37,18 @@ class TodoService(private val todoRepository: TodoRepository) {
     // U
     @Transactional
     fun updateTodo(todoId: Long, request: TodoUpdateRequest) {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchEntityException(todoId)
 
         todo.update(
             request.title,
             request.description,
-            request.author
+            request.name
         )
     }
 
     @Transactional
     fun completeTodo(todoId: Long) {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchEntityException(todoId)
 
         todo.toggleComplete()
     }
@@ -56,7 +56,7 @@ class TodoService(private val todoRepository: TodoRepository) {
     // D
     @Transactional
     fun deleteTodo(todoId: Long) {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchTodoException(todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchEntityException(todoId)
         todoRepository.delete(todo)
     }
 
