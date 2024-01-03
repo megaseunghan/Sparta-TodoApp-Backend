@@ -3,8 +3,7 @@ package com.todo.todoapplication.domain.comment.model
 import com.todo.todoapplication.domain.comment.dto.request.UpdateCommentRequest
 import com.todo.todoapplication.domain.todo.model.Todo
 import com.todo.todoapplication.global.entity.BaseEntity
-import com.todo.todoapplication.global.exception.InvalidRequestArgumentException
-import com.todo.todoapplication.global.exception.message.NAME_PASSWORD_NOT_MATCHING
+import com.todo.todoapplication.global.exception.IdPasswordMismatchException
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
@@ -36,8 +35,8 @@ class Comment(
     fun update(request: UpdateCommentRequest) {
         if (this.account.name == request.name && this.account.password == request.password) {
             this.content = request.content
+        } else {
+            throw IdPasswordMismatchException("아이디와 패스워드가 일치하지 않습니다.")
         }
-
-        throw InvalidRequestArgumentException(NAME_PASSWORD_NOT_MATCHING)
     }
 }
