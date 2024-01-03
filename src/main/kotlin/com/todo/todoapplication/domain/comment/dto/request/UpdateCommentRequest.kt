@@ -1,15 +1,11 @@
 package com.todo.todoapplication.domain.comment.dto.request
 
-import com.todo.todoapplication.global.exception.message.CONTENT_IS_NOT_EMPTY
-import com.todo.todoapplication.global.exception.InvalidRequestArgumentException
+import jakarta.validation.constraints.NotBlank
 
 data class UpdateCommentRequest(
     val name: String,
     val password: String,
-    val content: String
-) {
 
-    init {
-        require(content.isNotEmpty()) { throw InvalidRequestArgumentException(CONTENT_IS_NOT_EMPTY) }
-    }
-}
+    @field:NotBlank(message = "댓글 내용은 필수 입력 사항입니다.")
+    val content: String
+)
