@@ -20,7 +20,7 @@ data class TodoResponse(
                 todo.description,
                 todo.createdAt,
                 todo.updatedAt,
-                todo.author,
+                todo.name,
                 todo.completed
             )
         }

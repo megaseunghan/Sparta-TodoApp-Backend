@@ -13,13 +13,13 @@ class TodoFixture {
         val createTodoRequest = TodoCreateRequest(
             title = "투두 제목",
             description = "투두 내용",
-            authorName = "홍길동",
+            name = "홍길동",
         )
 
         val updateTodoRequest = TodoUpdateRequest(
             title = "업데이트 된 투두 제목",
             description = "업데이트 된 투두 내용",
-            author = "홍길동에서 고길동"
+            name = "홍길동에서 고길동"
         )
 
         val todoResponse = TodoResponse(
