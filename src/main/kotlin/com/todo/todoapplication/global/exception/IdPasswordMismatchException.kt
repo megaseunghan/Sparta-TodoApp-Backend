@@ -1,5 +1,5 @@
 package com.todo.todoapplication.global.exception
 
-class NoSuchEntityException(
+class IdPasswordMismatchException(
     message: String
 ) : RuntimeException(message)

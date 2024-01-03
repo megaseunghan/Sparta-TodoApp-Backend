@@ -1,9 +1,11 @@
 package com.todo.todoapplication.domain.todo.controller
 
 import com.todo.todoapplication.domain.todo.dto.request.TodoCreateRequest
+import com.todo.todoapplication.domain.todo.dto.request.TodoSortRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoUpdateRequest
 import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
 import com.todo.todoapplication.domain.todo.service.TodoService
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
@@ -14,7 +16,7 @@ class TodoController(private val todoService: TodoService) {
 
     // C
     @PostMapping
-    fun createTodo(@RequestBody request: TodoCreateRequest): ResponseEntity<Unit> {
+    fun createTodo(@Valid @RequestBody request: TodoCreateRequest): ResponseEntity<Unit> {
         val id = todoService.createTodo(request)
         return ResponseEntity.created(URI.create(String.format("/api/v1/todos/%d", id))).build()
     }
@@ -27,8 +29,14 @@ class TodoController(private val todoService: TodoService) {
     }
 
     @GetMapping
-    fun getTodoList(): ResponseEntity<List<TodoResponse>> {
-        val response = todoService.getTodoList()
+    fun getTodoByName(@RequestParam(name = "name") name: String): ResponseEntity<List<TodoResponse>> {
+        val response = todoService.getTodoByName(name)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping
+    fun getTodoList(todoSortRequest: TodoSortRequest): ResponseEntity<List<TodoResponse>> {
+        val response = todoService.getTodoList(todoSortRequest)
         return ResponseEntity.ok(response)
     }
 
@@ -36,7 +44,7 @@ class TodoController(private val todoService: TodoService) {
     @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable todoId: Long,
-        @RequestBody request: TodoUpdateRequest
+        @Valid @RequestBody request: TodoUpdateRequest
     ): ResponseEntity<Unit> {
         todoService.updateTodo(todoId, request)
         return ResponseEntity.ok().build()
