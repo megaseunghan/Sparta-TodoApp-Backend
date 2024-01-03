@@ -1,4 +1,4 @@
-package com.todo.todoapplication.global.exception
+package com.todo.todoapplication.global.exception.dto
 
 data class ErrorResponse(
     private val message: String?
