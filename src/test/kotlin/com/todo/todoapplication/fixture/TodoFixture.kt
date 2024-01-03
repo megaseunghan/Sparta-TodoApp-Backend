@@ -39,7 +39,7 @@ class TodoFixture {
             TodoResponse(3, "투두 제목 3", "투두 내용 3", LocalDateTime.now(), LocalDateTime.now(), "이나라", false)
         )
 
-        val defaultTodoSorting = TodoSortRequest().toSort()
+        val defaultTodoSorting = TodoSortRequest()
     }
 }
 
