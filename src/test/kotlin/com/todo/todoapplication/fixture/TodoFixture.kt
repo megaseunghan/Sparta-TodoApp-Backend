@@ -1,6 +1,7 @@
 package com.todo.todoapplication.fixture
 
 import com.todo.todoapplication.domain.todo.dto.request.TodoCreateRequest
+import com.todo.todoapplication.domain.todo.dto.request.TodoSortRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoUpdateRequest
 import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
 import java.time.LocalDateTime
@@ -37,6 +38,8 @@ class TodoFixture {
             TodoResponse(2, "투두 제목 2", "투두 내용 2", LocalDateTime.now(), LocalDateTime.now(), "김철수", false),
             TodoResponse(3, "투두 제목 3", "투두 내용 3", LocalDateTime.now(), LocalDateTime.now(), "이나라", false)
         )
+
+        val defaultTodoSorting = TodoSortRequest()
     }
 }
 

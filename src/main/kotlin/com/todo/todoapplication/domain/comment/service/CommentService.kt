@@ -5,8 +5,6 @@ import com.todo.todoapplication.domain.comment.dto.request.UpdateCommentRequest
 import com.todo.todoapplication.domain.comment.dto.response.CommentResponse
 import com.todo.todoapplication.domain.comment.repository.CommentRepository
 import com.todo.todoapplication.domain.todo.repository.TodoRepository
-import com.todo.todoapplication.global.exception.NoSuchEntityException
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -19,7 +17,7 @@ class CommentService(
     // C
     @Transactional
     fun createComment(todoId: Long, request: CommentCreateRequest): Long {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw NoSuchEntityException(todoId)
+        val todo = todoRepository.getTodoById(todoId)
         val comment = commentRepository.save(request.toEntity(todo))
 
         return comment.id!!
@@ -36,7 +34,7 @@ class CommentService(
     // U
     @Transactional
     fun updateComment(commentId: Long, request: UpdateCommentRequest): CommentResponse {
-        val comment = commentRepository.findByIdOrNull(commentId) ?: throw NoSuchEntityException(commentId)
+        val comment = commentRepository.getCommentById(commentId)
 
         comment.update(request)
 
@@ -46,7 +44,7 @@ class CommentService(
     // D
     @Transactional
     fun deleteComment(commentId: Long) {
-        val comment = commentRepository.findByIdOrNull(commentId) ?: throw NoSuchEntityException(commentId)
+        val comment = commentRepository.getCommentById(commentId)
 
         commentRepository.delete(comment)
     }

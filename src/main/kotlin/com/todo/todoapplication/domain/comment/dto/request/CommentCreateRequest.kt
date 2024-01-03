@@ -3,21 +3,19 @@ package com.todo.todoapplication.domain.comment.dto.request
 import com.todo.todoapplication.domain.comment.model.Account
 import com.todo.todoapplication.domain.comment.model.Comment
 import com.todo.todoapplication.domain.todo.model.Todo
-import com.todo.todoapplication.global.exception.message.CONTENT_IS_NOT_EMPTY
-import com.todo.todoapplication.global.exception.InvalidRequestArgumentException
-import com.todo.todoapplication.global.exception.message.NAME_IS_NOT_EMPTY
-import com.todo.todoapplication.global.exception.message.PASSWORD_IS_NOT_VALID
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 
 data class CommentCreateRequest(
+    @field:NotBlank(message = "작성자는 필수 입력 사항입니다.")
     val name: String,
+
+    @field:Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}${'$'}", message = "비밀번호는 영문과 특수문자 숫자를 포함하며 8자 이상이어야 합니다.")
     val password: String,
+
+    @field:NotBlank(message = "댓글 내용은 필수 입력 사항입니다.")
     val content: String
 ) {
-    init {
-        require(name.isNotEmpty()) { throw InvalidRequestArgumentException(NAME_IS_NOT_EMPTY) }
-        require(validatePassword(password)) { throw InvalidRequestArgumentException(PASSWORD_IS_NOT_VALID) }
-        require(content.isNotEmpty()) { throw InvalidRequestArgumentException(CONTENT_IS_NOT_EMPTY) }
-    }
 
     fun toEntity(todo: Todo): Comment {
         return Comment(
@@ -28,14 +26,6 @@ data class CommentCreateRequest(
             ),
             todo = todo
         )
-    }
-
-    private fun validatePassword(password: String): Boolean {
-        return Regex(PASSWORD_REGEX).matches(password)
-    }
-
-    companion object {
-        const val PASSWORD_REGEX = """^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}${'$'}"""
     }
 
 }

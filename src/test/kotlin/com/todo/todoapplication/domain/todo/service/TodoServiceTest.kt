@@ -1,6 +1,8 @@
 package com.todo.todoapplication.domain.todo.service
 
+import com.todo.todoapplication.domain.todo.exception.TODO_NOT_FOUND_MESSAGE
 import com.todo.todoapplication.fixture.TodoFixture.Companion.createTodoRequest
+import com.todo.todoapplication.fixture.TodoFixture.Companion.defaultTodoSorting
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoId
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoResponse
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoResponseList
@@ -44,7 +46,7 @@ class TodoServiceTest : BehaviorSpec() {
             val response = todoResponse
 
             every { todoService.getTodo(any()) } returns response
-            every { todoService.getTodo(wrongTodoId) } throws NoSuchEntityException(wrongTodoId)
+            every { todoService.getTodo(wrongTodoId) } throws NoSuchEntityException(TODO_NOT_FOUND_MESSAGE)
 
             When("ID에 맞는 Todo가 존재한다면") {
                 Then("Todo 1개가 조회된다") {
@@ -68,18 +70,18 @@ class TodoServiceTest : BehaviorSpec() {
             val responseList = todoResponseList
 
             When("Todo가 존재한다면") {
-                every { todoService.getTodoList() } returns responseList
+                every { todoService.getTodoList(defaultTodoSorting) } returns responseList
 
                 Then("모든 Todo가 조회된다") {
-                    todoService.getTodoList() shouldBe responseList
+                    todoService.getTodoList(defaultTodoSorting) shouldBe responseList
                 }
             }
 
             When("Todo가 존재하지 않는다면") {
-                every { todoService.getTodoList() } returns emptyList()
+                every { todoService.getTodoList(defaultTodoSorting) } returns emptyList()
 
                 Then("비어있는 List가 리턴된다") {
-                    todoService.getTodoList() shouldBe emptyList()
+                    todoService.getTodoList(defaultTodoSorting) shouldBe emptyList()
                 }
             }
         }
@@ -121,7 +123,7 @@ class TodoServiceTest : BehaviorSpec() {
             val wrongTodoId = wrongTodoId
 
             every { todoService.deleteTodo(any()) } just runs
-            every { todoService.deleteTodo(wrongTodoId) } throws NoSuchEntityException(wrongTodoId)
+            every { todoService.deleteTodo(wrongTodoId) } throws NoSuchEntityException(TODO_NOT_FOUND_MESSAGE)
 
             When("ID에 맞는 Todo가 존재한다면") {
                 Then("해당 Todo가 삭제된다") {
