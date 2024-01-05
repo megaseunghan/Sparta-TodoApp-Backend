@@ -28,8 +28,8 @@ class TodoController(private val todoService: TodoService) {
         return ResponseEntity.ok(response)
     }
 
-    @GetMapping
-    fun getTodoByName(@RequestParam(name = "name") name: String): ResponseEntity<List<TodoResponse>> {
+    @GetMapping("/{name}")
+    fun getTodoByName(@PathVariable name: String): ResponseEntity<List<TodoResponse>> {
         val response = todoService.getTodoByName(name)
         return ResponseEntity.ok(response)
     }

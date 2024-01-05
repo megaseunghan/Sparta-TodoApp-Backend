@@ -1,5 +1,6 @@
 package com.todo.todoapplication.domain.todo.service
 
+import com.todo.todoapplication.domain.comment.repository.CommentRepository
 import com.todo.todoapplication.domain.todo.dto.request.TodoCreateRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoSortRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoUpdateRequest
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class TodoService(private val todoRepository: TodoRepository) {
+class TodoService(
+    private val todoRepository: TodoRepository,
+    private val commentRepository: CommentRepository
+) {
 
     // C
     @Transactional
@@ -22,7 +26,8 @@ class TodoService(private val todoRepository: TodoRepository) {
     @Transactional(readOnly = true)
     fun getTodo(todoId: Long): TodoResponse {
         val todo = todoRepository.getTodoById(todoId)
-        return TodoResponse.from(todo)
+        val comments = commentRepository.findAllByTodo(todo)
+        return TodoResponse.from(todo, comments)
     }
 
     @Transactional(readOnly = true)

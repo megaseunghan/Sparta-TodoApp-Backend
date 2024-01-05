@@ -3,6 +3,7 @@ package com.todo.todoapplication.domain.todo.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.todo.todoapplication.domain.todo.service.TodoService
 import com.todo.todoapplication.fixture.TodoFixture.Companion.createTodoRequest
+import com.todo.todoapplication.fixture.TodoFixture.Companion.defaultTodoSorting
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoResponse
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoResponseList
 import com.todo.todoapplication.fixture.TodoFixture.Companion.updateTodoRequest
@@ -87,7 +88,7 @@ internal class TodoControllerTest {
         // given
         val list = todoResponseList
 
-        given(todoService.getTodoList()).willReturn(list)
+        given(todoService.getTodoList(defaultTodoSorting)).willReturn(list)
 
         // when & then
         mockMvc.perform(

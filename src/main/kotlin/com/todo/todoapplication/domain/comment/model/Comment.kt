@@ -17,12 +17,12 @@ class Comment(
     todo: Todo,
 ) : BaseEntity() {
 
-    @Column(name = "comment")
+    @Column(name = "content")
     var content = content
         private set
 
     @Id
-    @Column(name = "id")
+    @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 

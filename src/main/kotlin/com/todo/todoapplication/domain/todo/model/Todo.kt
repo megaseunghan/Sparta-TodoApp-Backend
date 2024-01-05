@@ -17,7 +17,7 @@ class Todo(
     var description = description
         private set
 
-    @Column(name = "author")
+    @Column(name = "name")
     var name = name
         private set
 
