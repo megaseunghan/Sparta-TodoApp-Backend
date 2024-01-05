@@ -1,18 +1,20 @@
 package com.todo.todoapplication.domain.todo.dto.response
 
-import com.todo.todoapplication.domain.comment.model.Comment
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.todo.todoapplication.domain.comment.dto.response.CommentResponse
 import com.todo.todoapplication.domain.todo.model.Todo
 import java.time.LocalDateTime
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class TodoResponse(
     val id: Long,
     val title: String,
     val description: String,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
-    val author: String,
+    val name: String,
     val completed: Boolean,
-    var comments: List<Comment>? = null
+    var comments: List<CommentResponse>? = null
 ) {
     companion object {
         fun from(todo: Todo): TodoResponse {
@@ -27,7 +29,7 @@ data class TodoResponse(
             )
         }
 
-        fun from(todo: Todo, comments: List<Comment>): TodoResponse {
+        fun from(todo: Todo, comments: List<CommentResponse>): TodoResponse {
             return TodoResponse(
                 todo.id!!,
                 todo.title,

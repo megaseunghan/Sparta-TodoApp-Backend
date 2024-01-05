@@ -29,7 +29,7 @@ class TodoFixture {
             description = "투두 내용",
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now(),
-            author = "홍길동",
+            name = "홍길동",
             completed = false
         )
 
