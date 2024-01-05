@@ -1,6 +1,7 @@
 package com.todo.todoapplication.domain.todo.controller
 
 import com.todo.todoapplication.domain.todo.dto.request.TodoCreateRequest
+import com.todo.todoapplication.domain.todo.dto.request.TodoFilterByNameRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoSortRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoUpdateRequest
 import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
@@ -28,15 +29,12 @@ class TodoController(private val todoService: TodoService) {
         return ResponseEntity.ok(response)
     }
 
-    @GetMapping("/{name}")
-    fun getTodoByName(@PathVariable name: String): ResponseEntity<List<TodoResponse>> {
-        val response = todoService.getTodoByName(name)
-        return ResponseEntity.ok(response)
-    }
-
     @GetMapping
-    fun getTodoList(todoSortRequest: TodoSortRequest): ResponseEntity<List<TodoResponse>> {
-        val response = todoService.getTodoList(todoSortRequest)
+    fun getTodoList(
+        todoSortRequest: TodoSortRequest,
+        todoFilterByNameRequest: TodoFilterByNameRequest
+    ): ResponseEntity<List<TodoResponse>> {
+        val response = todoService.getTodoList(todoSortRequest, todoFilterByNameRequest)
         return ResponseEntity.ok(response)
     }
 
