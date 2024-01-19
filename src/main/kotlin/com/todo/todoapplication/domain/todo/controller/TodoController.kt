@@ -8,6 +8,8 @@ import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
 import com.todo.todoapplication.domain.todo.service.TodoService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.User
 import org.springframework.web.bind.annotation.*
 import java.net.URI
 
@@ -17,8 +19,11 @@ class TodoController(private val todoService: TodoService) {
 
     // C
     @PostMapping
-    fun createTodo(@Valid @RequestBody request: TodoCreateRequest): ResponseEntity<Unit> {
-        val id = todoService.createTodo(request)
+    fun createTodo(
+        @Valid @RequestBody request: TodoCreateRequest,
+        @AuthenticationPrincipal authenticated: User
+    ): ResponseEntity<Unit> {
+        val id = todoService.createTodo(request, authenticated)
         return ResponseEntity.created(URI.create(String.format("/api/v1/todos/%d", id))).build()
     }
 
@@ -42,22 +47,29 @@ class TodoController(private val todoService: TodoService) {
     @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable todoId: Long,
-        @Valid @RequestBody request: TodoUpdateRequest
+        @Valid @RequestBody request: TodoUpdateRequest,
+        @AuthenticationPrincipal authenticated: User
     ): ResponseEntity<Unit> {
-        todoService.updateTodo(todoId, request)
+        todoService.updateTodo(todoId, request, authenticated)
         return ResponseEntity.ok().build()
     }
 
     @PatchMapping("/{todoId}")
-    fun completeTodo(@PathVariable todoId: Long): ResponseEntity<Unit> {
-        todoService.completeTodo(todoId)
+    fun completeTodo(
+        @PathVariable todoId: Long,
+        @AuthenticationPrincipal authenticated: User
+    ): ResponseEntity<Unit> {
+        todoService.completeTodo(todoId, authenticated)
         return ResponseEntity.ok().build()
     }
 
     // D
     @DeleteMapping("/{todoId}")
-    fun deleteTodo(@PathVariable todoId: Long): ResponseEntity<Unit> {
-        todoService.deleteTodo(todoId)
+    fun deleteTodo(
+        @PathVariable todoId: Long,
+        @AuthenticationPrincipal authenticated: User
+    ): ResponseEntity<Unit> {
+        todoService.deleteTodo(todoId, authenticated)
         return ResponseEntity.noContent().build()
     }
 }

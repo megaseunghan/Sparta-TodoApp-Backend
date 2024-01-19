@@ -2,6 +2,7 @@ package com.todo.todoapplication.domain.todo.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.todo.todoapplication.domain.todo.service.TodoService
+import com.todo.todoapplication.fixture.AuthFixture.Companion.authenticatedUser
 import com.todo.todoapplication.fixture.TodoFixture.Companion.createTodoRequest
 import com.todo.todoapplication.fixture.TodoFixture.Companion.defaultTodoSorting
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoResponse
@@ -54,7 +55,7 @@ internal class TodoControllerTest {
         val todoId = 1L
         val request = createTodoRequest
 
-        given(todoService.createTodo(request)).willReturn(todoId)
+        given(todoService.createTodo(request, any())).willReturn(todoId)
 
         // when & then
         mockMvc.perform(
@@ -88,7 +89,7 @@ internal class TodoControllerTest {
         // given
         val list = todoResponseList
 
-        given(todoService.getTodoList(defaultTodoSorting)).willReturn(list)
+        given(todoService.getTodoList(defaultTodoSorting, any())).willReturn(list)
 
         // when & then
         mockMvc.perform(
@@ -102,7 +103,7 @@ internal class TodoControllerTest {
         // given
         val request = updateTodoRequest
         val todoId = 1L
-        willDoNothing().given(todoService).updateTodo(todoId, request)
+        willDoNothing().given(todoService).updateTodo(todoId, request, authenticatedUser)
 
         //  when & then
         mockMvc.perform(
@@ -120,7 +121,7 @@ internal class TodoControllerTest {
         val deleteTodo = todoResponse
 
         // when & then
-        doNothing().`when`(todoService).deleteTodo(deleteTodo.id)
+        doNothing().`when`(todoService).deleteTodo(deleteTodo.id, authenticatedUser)
 
         mockMvc.delete("/api/v1/todos/1")
             .andExpect {
