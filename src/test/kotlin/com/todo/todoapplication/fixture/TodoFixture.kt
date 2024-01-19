@@ -1,6 +1,7 @@
 package com.todo.todoapplication.fixture
 
 import com.todo.todoapplication.domain.todo.dto.request.TodoCreateRequest
+import com.todo.todoapplication.domain.todo.dto.request.TodoFilterByNameRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoSortRequest
 import com.todo.todoapplication.domain.todo.dto.request.TodoUpdateRequest
 import com.todo.todoapplication.domain.todo.dto.response.TodoResponse
@@ -8,13 +9,14 @@ import java.time.LocalDateTime
 
 class TodoFixture {
     companion object {
-        val todoId = 1L
-        val wrongTodoId = 9999L
+        const val todoId = 1L
+        const val wrongTodoId = 9999L
 
         val createTodoRequest = TodoCreateRequest(
             title = "투두 제목",
             description = "투두 내용",
             name = "홍길동",
+            email = "test@naver.com"
         )
 
         val updateTodoRequest = TodoUpdateRequest(
@@ -29,7 +31,7 @@ class TodoFixture {
             description = "투두 내용",
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now(),
-            author = "홍길동",
+            name = "홍길동",
             completed = false
         )
 
@@ -40,6 +42,8 @@ class TodoFixture {
         )
 
         val defaultTodoSorting = TodoSortRequest()
+
+        val defaultTodoFilterByName = TodoFilterByNameRequest("")
     }
 }
 

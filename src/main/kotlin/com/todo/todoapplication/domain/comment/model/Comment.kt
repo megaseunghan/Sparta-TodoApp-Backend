@@ -1,20 +1,21 @@
 package com.todo.todoapplication.domain.comment.model
 
+import com.todo.todoapplication.domain.comment.dto.request.CommentCreateRequest
 import com.todo.todoapplication.domain.comment.dto.request.UpdateCommentRequest
+import com.todo.todoapplication.domain.comment.dto.response.CommentResponse
 import com.todo.todoapplication.domain.todo.model.Todo
+import com.todo.todoapplication.domain.user.model.User
 import com.todo.todoapplication.global.entity.BaseEntity
-import com.todo.todoapplication.global.exception.IdPasswordMismatchException
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 
 @Entity
 @Table(name = "comments")
-class Comment(
-    @Embedded
-    val account: Account,
+class Comment private constructor(
     content: String,
     todo: Todo,
+    user: User
 ) : BaseEntity() {
 
     @Column(name = "content")
@@ -28,15 +29,35 @@ class Comment(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
+    var user: User = user
+        private set
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "todo_id")
     var todo = todo
         private set
 
     fun update(request: UpdateCommentRequest) {
-        if (this.account.name == request.name && this.account.password == request.password) {
-            this.content = request.content
-        } else {
-            throw IdPasswordMismatchException("아이디와 패스워드가 일치하지 않습니다.")
+        this.content = request.content
+    }
+
+    fun from(): CommentResponse {
+        return CommentResponse(
+            email = this.user.email,
+            content = this.content
+        )
+    }
+
+    companion object {
+        fun toEntity(request: CommentCreateRequest, todo: Todo, user: User): Comment {
+            return Comment(
+                content = request.content,
+                todo = todo,
+                user = user
+            )
         }
     }
+
 }
