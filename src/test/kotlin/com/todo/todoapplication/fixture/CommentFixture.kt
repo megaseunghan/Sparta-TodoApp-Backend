@@ -6,11 +6,11 @@ import com.todo.todoapplication.domain.comment.dto.response.CommentResponse
 
 class CommentFixture {
     companion object {
-        val commentId = 1L
-        val wrongCommentId = 9999L
+        const val commentId = 1L
+        const val wrongCommentId = 9999L
 
         val createCommentRequest = CommentCreateRequest(
-            name = "홍길동",
+            email = "홍길동",
             password = "ghdrlfehd1!",
             content = "댓글 내용"
         )
@@ -22,24 +22,24 @@ class CommentFixture {
         )
 
         val updateCommentRequest = UpdateCommentRequest(
-            name = "홍길동",
+            email = "홍길동",
             password = "ghdrlfehd1!",
             content = "댓글 내용 수정함"
         )
 
         val updateCommentRequestWithWrongIdAndPw = UpdateCommentRequest(
-            name = "홍길동 아님",
+            email = "홍길동 아님",
             password = "ghdrlfehddksla1!",
             content = "댓글 내용 수정함"
         )
 
         val commentResponse = CommentResponse(
-            name = "홍길동",
+            email = "홍길동",
             content = "댓글 내용"
         )
 
         val updatedCommentResponse = CommentResponse(
-            name = "홍길동",
+            email = "홍길동",
             content = "댓글 내용 수정함"
         )
 
