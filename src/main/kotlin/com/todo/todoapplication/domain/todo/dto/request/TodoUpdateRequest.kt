@@ -11,5 +11,5 @@ data class TodoUpdateRequest(
     val description: String,
 
     @field:NotBlank(message = "작성자는 필수 입력 사항입니다.")
-    val name: String
+    val name: String,
 )

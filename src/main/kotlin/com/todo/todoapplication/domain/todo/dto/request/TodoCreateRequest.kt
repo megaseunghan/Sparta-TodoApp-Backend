@@ -1,6 +1,6 @@
 package com.todo.todoapplication.domain.todo.dto.request
 
-import com.todo.todoapplication.domain.todo.model.Todo
+import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
@@ -12,15 +12,9 @@ data class TodoCreateRequest(
     val description: String,
 
     @field:NotBlank(message = "작성자는 필수 입력 사항입니다.")
-    val name: String
-) {
+    val name: String,
 
-    fun toEntity(): Todo {
-        return Todo(
-            title = title,
-            description = description,
-            name = name
-        )
-    }
-
-}
+    @field:NotBlank(message = "작성자 이메일은 필수 입력 사항입니다.")
+    @field:Email(message = "올바른 이메일 형식이 아닙니다.")
+    val email: String
+)
