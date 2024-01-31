@@ -2,6 +2,7 @@ package com.todo.todoapplication.global.auth.security
 
 import com.todo.todoapplication.global.auth.filter.JwtAuthenticationFilter
 import com.todo.todoapplication.global.auth.handler.CustomAccessDeniedHandler
+import com.todo.todoapplication.global.auth.handler.CustomAuthenticationEntryPoint
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,7 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 class SecurityConfig(
     private val jwtAuthenticationFilter: JwtAuthenticationFilter,
-    private val accessDeniedHandler: CustomAccessDeniedHandler
+    private val accessDeniedHandler: CustomAccessDeniedHandler,
+    private val authenticationEntryPoint: CustomAuthenticationEntryPoint
 ) {
 
     @Bean
@@ -35,7 +37,7 @@ class SecurityConfig(
             }
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .exceptionHandling {
-                // AuthenticationEntryPoint
+                it.authenticationEntryPoint(authenticationEntryPoint)
                 it.accessDeniedHandler(accessDeniedHandler)
             }
             .build()
