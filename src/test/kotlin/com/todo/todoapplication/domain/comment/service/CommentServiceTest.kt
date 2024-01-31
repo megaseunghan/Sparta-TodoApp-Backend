@@ -12,8 +12,8 @@ import com.todo.todoapplication.fixture.CommentFixture.Companion.updatedCommentR
 import com.todo.todoapplication.fixture.CommentFixture.Companion.wrongCommentId
 import com.todo.todoapplication.fixture.TodoFixture.Companion.todoId
 import com.todo.todoapplication.fixture.TodoFixture.Companion.wrongTodoId
-import com.todo.todoapplication.global.exception.IdPasswordMismatchException
-import com.todo.todoapplication.global.exception.NoSuchEntityException
+import com.todo.todoapplication.global.exception.member.IdPasswordMismatchException
+import com.todo.todoapplication.global.exception.common.NoSuchEntityException
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe

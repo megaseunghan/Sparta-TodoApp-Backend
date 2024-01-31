@@ -6,9 +6,9 @@ import com.todo.todoapplication.domain.user.dto.response.LoginResponse
 import com.todo.todoapplication.domain.user.exception.USER_NOT_FOUND_MESSAGE
 import com.todo.todoapplication.domain.user.model.User
 import com.todo.todoapplication.domain.user.repository.UserRepository
-import com.todo.todoapplication.global.auth.jwt.JwtTokenProvider
-import com.todo.todoapplication.global.exception.DuplicatedEmailException
-import com.todo.todoapplication.global.exception.NoSuchEntityException
+import com.todo.todoapplication.global.auth.JwtTokenProvider
+import com.todo.todoapplication.global.exception.member.DuplicatedEmailException
+import com.todo.todoapplication.global.exception.common.NoSuchEntityException
 import org.springframework.stereotype.Service
 
 @Service

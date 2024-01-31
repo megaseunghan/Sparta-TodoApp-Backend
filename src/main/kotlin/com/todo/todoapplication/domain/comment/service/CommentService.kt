@@ -8,9 +8,9 @@ import com.todo.todoapplication.domain.comment.model.Comment
 import com.todo.todoapplication.domain.comment.repository.CommentRepository
 import com.todo.todoapplication.domain.todo.service.TodoService
 import com.todo.todoapplication.domain.user.repository.UserRepository
-import com.todo.todoapplication.global.auth.validate.isAuthorized
-import com.todo.todoapplication.global.exception.IdPasswordMismatchException
-import com.todo.todoapplication.global.exception.NoSuchEntityException
+import com.todo.todoapplication.global.auth.isAuthorized
+import com.todo.todoapplication.global.exception.member.IdPasswordMismatchException
+import com.todo.todoapplication.global.exception.common.NoSuchEntityException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.crypto.password.PasswordEncoder

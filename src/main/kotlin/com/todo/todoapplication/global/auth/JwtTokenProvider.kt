@@ -1,4 +1,4 @@
-package com.todo.todoapplication.global.auth.jwt
+package com.todo.todoapplication.global.auth
 
 import com.todo.todoapplication.domain.user.dto.response.LoginResponse
 import com.todo.todoapplication.domain.user.model.User

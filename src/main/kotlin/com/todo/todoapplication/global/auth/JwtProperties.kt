@@ -1,4 +1,4 @@
-package com.todo.todoapplication.global.auth.jwt
+package com.todo.todoapplication.global.auth
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

@@ -1,4 +1,4 @@
-package com.todo.todoapplication.global.auth.security
+package com.todo.todoapplication.global.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
