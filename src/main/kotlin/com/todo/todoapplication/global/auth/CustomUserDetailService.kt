@@ -1,9 +1,9 @@
-package com.todo.todoapplication.global.auth.service
+package com.todo.todoapplication.global.auth
 
 import com.todo.todoapplication.domain.user.exception.USER_NOT_FOUND_MESSAGE
 import com.todo.todoapplication.domain.user.model.User
 import com.todo.todoapplication.domain.user.repository.UserRepository
-import com.todo.todoapplication.global.exception.NoSuchEntityException
+import com.todo.todoapplication.global.exception.common.NoSuchEntityException
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

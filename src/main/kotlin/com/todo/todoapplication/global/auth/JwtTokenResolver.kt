@@ -1,6 +1,5 @@
-package com.todo.todoapplication.global.auth.jwt
+package com.todo.todoapplication.global.auth
 
-import com.todo.todoapplication.global.auth.service.CustomUserDetailService
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys

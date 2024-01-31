@@ -1,6 +1,5 @@
-package com.todo.todoapplication.global.auth.filter
+package com.todo.todoapplication.global.auth
 
-import com.todo.todoapplication.global.auth.jwt.JwtTokenResolver
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

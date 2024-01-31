@@ -1,9 +1,9 @@
 package com.todo.todoapplication.global.exception.handler
 
-import com.todo.todoapplication.global.exception.AccessDeniedApiException
-import com.todo.todoapplication.global.exception.DuplicatedEmailException
-import com.todo.todoapplication.global.exception.IdPasswordMismatchException
-import com.todo.todoapplication.global.exception.NoSuchEntityException
+import com.todo.todoapplication.global.exception.auth.AccessDeniedApiException
+import com.todo.todoapplication.global.exception.member.DuplicatedEmailException
+import com.todo.todoapplication.global.exception.member.IdPasswordMismatchException
+import com.todo.todoapplication.global.exception.common.NoSuchEntityException
 import com.todo.todoapplication.global.exception.response.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus

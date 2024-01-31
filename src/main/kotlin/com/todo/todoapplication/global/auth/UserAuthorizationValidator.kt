@@ -1,9 +1,9 @@
-package com.todo.todoapplication.global.auth.validate
+package com.todo.todoapplication.global.auth
 
 import com.todo.todoapplication.domain.user.repository.UserRepository
 import org.springframework.security.core.userdetails.User as AuthenticatedUser
 import com.todo.todoapplication.domain.user.model.User
-import com.todo.todoapplication.global.exception.AccessDeniedApiException
+import com.todo.todoapplication.global.exception.auth.AccessDeniedApiException
 
 fun <T> isAuthorized(
     email: String,

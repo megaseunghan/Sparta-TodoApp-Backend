@@ -10,8 +10,8 @@ import com.todo.todoapplication.domain.todo.exception.TODO_NOT_FOUND_MESSAGE
 import com.todo.todoapplication.domain.todo.model.Todo
 import com.todo.todoapplication.domain.todo.repository.TodoRepository
 import com.todo.todoapplication.domain.user.repository.UserRepository
-import com.todo.todoapplication.global.auth.validate.isAuthorized
-import com.todo.todoapplication.global.exception.NoSuchEntityException
+import com.todo.todoapplication.global.auth.isAuthorized
+import com.todo.todoapplication.global.exception.common.NoSuchEntityException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Service

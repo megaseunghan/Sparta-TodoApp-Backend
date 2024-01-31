@@ -28,7 +28,7 @@ class User private constructor(
             return User(
                 password = request.password,
                 email = request.email,
-                role = UserRole.valueOf(request.role)
+                role = request.role
             )
         }
     }
