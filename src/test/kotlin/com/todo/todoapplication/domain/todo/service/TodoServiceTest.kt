@@ -62,8 +62,8 @@ class TodoServiceTest : BehaviorSpec() {
                 }
 
                 Then("NoSuchTodoException 예외가 발생한다") {
-                    noSuchEntityException::class.simpleName shouldBe "NoSuchTodoException"
-                    noSuchEntityException.message shouldBe "Todo 를 찾을 수 없습니다. todoID => $wrongTodoId"
+                    noSuchEntityException::class.simpleName shouldBe "NoSuchEntityException"
+                    noSuchEntityException.message shouldBe "조회한 TODO를 찾을 수 없습니다."
                 }
             }
         }
@@ -139,8 +139,8 @@ class TodoServiceTest : BehaviorSpec() {
                 }
 
                 Then("NoSuchTodoException 예외가 발생한다") {
-                    noSuchEntityException::class.simpleName shouldBe "NoSuchTodoException"
-                    noSuchEntityException.message shouldBe "Todo 를 찾을 수 없습니다. todoID => $wrongTodoId"
+                    noSuchEntityException::class.simpleName shouldBe "NoSuchEntityException"
+                    noSuchEntityException.message shouldBe "조회한 TODO를 찾을 수 없습니다."
                 }
             }
         }
